@@ -4,6 +4,7 @@ import axios from 'axios';
 import './Blog.css';
 import Pagination from '../../components/pagination/pagination';
 import PostModal from '../../components/modal/post-modal';
+import GlobalSearchComp from '../../components/GlobalSearch/GlobalSearch';
 
 class Blog extends Component {
     constructor(){
@@ -22,7 +23,10 @@ class Blog extends Component {
     }
 
     componentDidMount() {
-        this.timer = setInterval(()=> this.getItems(), 10000);
+        // this.timer = setInterval(()=>
+         this.getItems();
+        
+        // , 10000);
       }
       
       componentWillUnmount() {
@@ -59,6 +63,11 @@ class Blog extends Component {
             selectedPost: post
         })
         this.setState({toggleModal: true})};
+
+    handleSetData = data => {
+        console.log(data);
+        this.setState({ pageOfItems: data });
+        };    
     render() {
         let tRow= null, tableData= null;
         let posts = this.state.pageOfItems;
@@ -87,7 +96,10 @@ class Blog extends Component {
                     </table>);
         return (
             <Auxiliary>
-                <h2>Post List</h2><br />
+                <h2>Post List</h2>
+                <GlobalSearchComp data={this.state.pageOfItems}
+          handleSetData={this.handleSetData} onChangePage={this.onChangePage}/>
+                <br />
                 {this.state.isShowPosts? tableData : <h3>Loading data......</h3>}
                 {this.state.isShowPosts? <Pagination items={this.state.posts} onChangePage={this.onChangePage} />: null}
                 

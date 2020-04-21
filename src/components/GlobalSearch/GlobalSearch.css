@@ -1,0 +1,8 @@
+input{
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    padding: 8px 10px;
+    outline: none;
+    margin-bottom: 15px;
+  }
